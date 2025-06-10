@@ -1,0 +1,53 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+dist-electron/  # dist-electron, dist-react, etc.
+
+# Vite cache
+.vite/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*  # like .env.local, etc.
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.sw?
+
+# Electron package artifacts
+*.exe
+*.app
+*.asar
+*.dmg
+*.deb
+*.rpm
+*.msi
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.python-version
+
+# Installer output (optional)
+release/
+out/
+
+# Misc
+coverage/
+test-results/

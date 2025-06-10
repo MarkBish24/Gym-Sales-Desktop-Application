@@ -1,0 +1,36 @@
+{
+  "name": "gym-sales-bot",
+  "version": "1.0.0",
+  "description": "This is a desktop application that automates sending text messages through the gym sales website",
+  "main": "main/main.js",
+  "scripts": {
+    "dev:react": "vite",
+    "dev:electron": "electron .",
+    "dev": "concurrently \"npm run dev:react\" \"wait-on http://localhost:5173 && npm run dev:electron\"",
+    "build": "vite build",
+    "preview": "vite preview",
+    "package": "electron-packager . GymSalesBot --platform=win32 --arch=x64 --out=dist-electron --overwrite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarkBish24/Gym-Sales-Desktop-Application.git"
+  },
+  "author": "Mark Bishoff",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarkBish24/Gym-Sales-Desktop-Application/issues"
+  },
+  "homepage": "https://github.com/MarkBish24/Gym-Sales-Desktop-Application#readme",
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.5.2",
+    "concurrently": "^9.1.2",
+    "electron": "^36.4.0",
+    "electron-packager": "^17.1.2",
+    "vite": "^6.3.5",
+    "wait-on": "^8.0.3"
+  }
+}
