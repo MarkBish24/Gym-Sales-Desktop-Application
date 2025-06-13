@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/MarkBish24/Gym-Sales-Desktop-Application#readme",
   "dependencies": {
+    "framer-motion": "^12.18.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0"
