@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "DroidSerif";
+  src: url("../assets/fonts/DroidSerif.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DroidSerif";
+  src: url("../assets/fonts/DroidSerif-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: "DroidSerif", serif;
+  padding: 1rem 8%;
+  background-color: rgb(225, 225, 225);
+  color: rgb(3, 16, 29);
+}

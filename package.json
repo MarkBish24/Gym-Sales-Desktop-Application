@@ -9,7 +9,7 @@
     "dev": "concurrently \"npm run dev:react\" \"wait-on http://localhost:5173 && npm run dev:electron\"",
     "build": "vite build",
     "preview": "vite preview",
-    "package": "electron-packager . GymSalesBot --platform=win32 --arch=x64 --out=dist-electron --overwrite"
+    "package": "electron-packager . GymSalesBot --platform=win32 --arch=x64 --out=dist-electron --overwrite --icon=assets/desktopIcon.ico"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,8 @@
   "homepage": "https://github.com/MarkBish24/Gym-Sales-Desktop-Application#readme",
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.5.2",

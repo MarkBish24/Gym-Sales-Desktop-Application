@@ -1,0 +1,52 @@
+.queue-item {
+  background-color: rgb(197, 203, 207);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 80px;
+  border-radius: 4px;
+  margin: 10px 0px;
+  padding: 0px 20px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.queue-btn-container {
+  display: flex;
+  flex-direction: row;
+}
+.queue-btn {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.pause-btn {
+  color: rgb(3, 16, 29);
+  font-size: 30px;
+
+  transition: color 0.2s ease-in-out, font-size 0.2s ease-in-out;
+}
+.pause-btn:hover {
+  color: rgb(42, 170, 42);
+  font-size: 34px;
+}
+
+.delete-btn {
+  color: rgb(3, 16, 29);
+  font-size: 30px;
+
+  transition: color 0.2s ease-in-out, font-size 0.2s ease-in-out;
+}
+
+.delete-btn:hover {
+  color: rgb(234, 56, 56);
+  font-size: 34px;
+}
