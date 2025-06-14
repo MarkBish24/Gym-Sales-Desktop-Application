@@ -1,0 +1,24 @@
+.drop-zone {
+  width: 100%;
+  height: 250px;
+  border: 2px dashed #aaa;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  background-color: rgb(218, 218, 218);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.drop-zone.drag-over {
+  border: 2px dashed #659f58;
+  color: #659f58;
+  background-color: rgb(199, 216, 205);
+}
+
+.drop-box-img {
+  width: 128px;
+  height: auto;
+}

@@ -1,8 +1,13 @@
 import { easeIn, easeOut, motion } from "framer-motion";
+import { useState } from "react";
 
 import "./AddListPage.css";
+import DropBox from "./DropBox.jsx";
 
 export default function AddListPage({ setShowAddListPage }) {
+  const [message, setMessage] = useState(null);
+  const [sendMode, setSendMode] = useState(null);
+
   return (
     <motion.div
       initial={{ x: "-100%" }}
@@ -19,6 +24,18 @@ export default function AddListPage({ setShowAddListPage }) {
         >
           Leave
         </button>
+      </div>
+      <DropBox />
+      <textarea id="message"></textarea>
+      <div>
+        <label>
+          <input type="radio" name="now" />
+          Send Now
+        </label>
+        <label>
+          <input type="radio" name="later" />
+          Send Later
+        </label>
       </div>
     </motion.div>
   );
