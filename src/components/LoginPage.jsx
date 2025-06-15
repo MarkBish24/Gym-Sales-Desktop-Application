@@ -24,6 +24,13 @@ export default function LoginPage({
           Leave
         </button>
       </div>
+      <div className="login-description">
+        <span>
+          In order for the Gym-Sales-Bot to function, it needs your username and
+          password to login into Gym Sales so it can send out text-messages to
+          members.
+        </span>
+      </div>
       <div className="login-info">
         <div className="login-item">
           <span>Username</span>

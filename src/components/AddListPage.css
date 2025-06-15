@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "DroidSerif";
+  src: url("../assets/fonts/DroidSerif.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DroidSerif";
+  src: url("../assets/fonts/DroidSerif-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
 .add-list-page-container {
   position: fixed;
   top: 0;
@@ -39,4 +53,59 @@
 .add-to-queue-btn:hover {
   background-color: rgb(42, 170, 42);
   transform: scale(1.05);
+}
+
+.main-ui-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.main-ui-container > * {
+  margin: 10px;
+}
+
+.message-box-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px;
+}
+
+.message-box-label {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.message-box {
+  font-family: "DroidSerif", serif;
+  width: 350px;
+  height: 120px;
+}
+
+.send-mode-container {
+  display: grid;
+  justify-content: start;
+  margin: 8px;
+}
+
+.radio-btn {
+  font-size: 16px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+
+  margin: 4px;
+}
+
+.radio-btn input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.set-time-container {
+  height: 100px;
+  width: 100px;
+  background-color: green;
 }

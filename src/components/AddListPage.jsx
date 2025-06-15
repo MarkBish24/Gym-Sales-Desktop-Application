@@ -6,7 +6,7 @@ import DropBox from "./DropBox.jsx";
 
 export default function AddListPage({ setShowAddListPage }) {
   const [message, setMessage] = useState(null);
-  const [sendMode, setSendMode] = useState(null);
+  const [sendMode, setSendMode] = useState(false);
 
   return (
     <motion.div
@@ -26,16 +26,45 @@ export default function AddListPage({ setShowAddListPage }) {
         </button>
       </div>
       <DropBox />
-      <textarea id="message"></textarea>
-      <div>
-        <label>
-          <input type="radio" name="now" />
-          Send Now
-        </label>
-        <label>
-          <input type="radio" name="later" />
-          Send Later
-        </label>
+      <div className="main-ui-container">
+        <div className="message-box-container">
+          <label className="message-box-label" htmlFor="message">
+            Insert the Message you want to Send!
+          </label>
+          <textarea
+            className="message-box"
+            id="message"
+            name="message"
+            rows="4"
+            cols="50"
+          ></textarea>
+        </div>
+        <div>
+          <label className="message-box-label">
+            Set Time for Text-Message!
+          </label>
+          <div className="send-mode-container">
+            <label className="radio-btn">
+              <input
+                type="radio"
+                name="send-mode"
+                value="now"
+                onClick={() => setSendMode(false)}
+              />
+              Send Now
+            </label>
+            <label className="radio-btn">
+              <input
+                type="radio"
+                name="send-mode"
+                value="later"
+                onClick={() => setSendMode(true)}
+              />
+              Send Later
+            </label>
+          </div>
+        </div>
+        {sendMode ? <div className="set-time-container"></div> : null}
       </div>
     </motion.div>
   );

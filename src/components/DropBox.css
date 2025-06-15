@@ -1,3 +1,31 @@
+.file-uploaded {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 16px;
+
+  border: 2px;
+  background-color: rgb(199, 216, 205);
+}
+
+.file-delete-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-delete-btn:hover {
+  color: #be123c; /* darker red on hover */
+}
 .drop-zone {
   width: 100%;
   height: 250px;
