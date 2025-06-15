@@ -18,7 +18,7 @@ export default function LoginPage({
       <div className="header-container">
         <h1 className="header-title">Set Login Info</h1>
         <button
-          className="add-to-queue-btn"
+          className="ui-btn"
           onClick={() => setShowLoginPage((prev) => !prev)}
         >
           Leave

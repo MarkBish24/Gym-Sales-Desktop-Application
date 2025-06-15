@@ -19,7 +19,7 @@ export default function AddListPage({ setShowAddListPage }) {
       <div className="header-container">
         <h1 className="header-title">Add List Page</h1>
         <button
-          className="add-to-queue-btn"
+          className="ui-btn"
           onClick={() => setShowAddListPage((prev) => !prev)}
         >
           Leave
@@ -40,9 +40,7 @@ export default function AddListPage({ setShowAddListPage }) {
           ></textarea>
         </div>
         <div>
-          <label className="message-box-label">
-            Set Time for Text-Message!
-          </label>
+          <label className="message-box-label">Send Now or Later</label>
           <div className="send-mode-container">
             <label className="radio-btn">
               <input
@@ -64,7 +62,17 @@ export default function AddListPage({ setShowAddListPage }) {
             </label>
           </div>
         </div>
-        {sendMode ? <div className="set-time-container"></div> : null}
+        {sendMode ? (
+          <div className="set-time-container">
+            <label className="message-box-label">
+              Set Time for Text-Message!
+            </label>
+            <div className="set-time-btns">
+              <button className="ui-btn">Set Day</button>
+              <button className="ui-btn">Set Time</button>
+            </div>
+          </div>
+        ) : null}
       </div>
     </motion.div>
   );
