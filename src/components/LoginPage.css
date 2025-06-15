@@ -1,6 +1,5 @@
 .login-page-container {
   position: fixed;
-
   top: 0;
   left: 0;
   width: 100%;
@@ -25,6 +24,7 @@
 
   background-color: rgb(197, 203, 207);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
 }
 
 .login-item {

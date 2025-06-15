@@ -10,14 +10,18 @@ export default function App() {
   const [showAddListPage, setShowAddListPage] = useState(false);
   const [showLoginPage, setShowLoginPage] = useState(false);
 
-  const [loginData, setLoginData] = useState({ userName: "", password: "" });
+  const [loginData, setLoginData] = useState({ username: "", password: "" });
   return (
     <>
       <div className="header-container">
         <h1 className="header-title">The Gym-Sales-Bot</h1>
         <div className="header-btn-container">
           <button
-            className="ui-btn incomplete-task"
+            className={`ui-btn ${
+              !loginData.username || !loginData.password
+                ? "incomplete-task"
+                : ""
+            }`}
             onClick={() => setShowLoginPage((prev) => !prev)}
           >
             Add Login Info
@@ -41,6 +45,7 @@ export default function App() {
       {showLoginPage ? (
         <LoginPage
           setShowLoginPage={setShowLoginPage}
+          loginData={loginData}
           setLoginData={setLoginData}
         />
       ) : null}
