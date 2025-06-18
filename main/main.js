@@ -1,10 +1,11 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
+const { ipcMain } = require("electron");
 
 function createWindow() {
   const window = new BrowserWindow({
     width: 1000,
-    height: 800,
+    height: 700,
     icon: path.join(__dirname, "assets", "desktopIcon.ico"),
     webPreferences: {
       nodeIntegration: false,
@@ -33,3 +34,5 @@ app.whenReady().then(() => {
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
+
+ipcMain.on("create-queue-item", (data) => {});

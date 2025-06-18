@@ -64,6 +64,14 @@
   margin: 10px;
 }
 
+.title-input {
+  display: block;
+  font-family: "DroidSerif", serif;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  padding: 5px;
+  letter-spacing: 0.5px;
+}
 .message-box-container {
   display: flex;
   flex-direction: column;
@@ -106,7 +114,7 @@
 
 .set-time-container {
   height: 150px;
-  width: 280px;
+  width: 250px;
 }
 
 .set-time-btns {

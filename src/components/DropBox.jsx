@@ -4,9 +4,8 @@ import "./DropBox.css";
 import { div, span } from "framer-motion/client";
 import { RxCross1 } from "react-icons/rx";
 
-export default function DropBox() {
+export default function DropBox({ file, setFile }) {
   const [isDragging, setIsDragging] = useState(false);
-  const [file, setFile] = useState(null);
 
   const handleDragOver = (e) => {
     e.preventDefault();
