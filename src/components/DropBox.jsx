@@ -15,15 +15,24 @@ export default function DropBox({ file, setFile }) {
   const handleDragLeave = () => {
     setIsDragging(false);
   };
-
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
 
-    setFile(e.dataTransfer.files[0]);
+    const droppedFile = e.dataTransfer.files[0];
+    if (!droppedFile) return;
 
-    if (file) {
-      console.log("Dropped File:", file.name);
+    const isCsv =
+      droppedFile.type === "text/csv" ||
+      droppedFile.name.toLowerCase().endsWith(".csv");
+
+    if (isCsv) {
+      setFile(droppedFile);
+      console.log("Dropped File:", droppedFile.name);
+    } else {
+      alert(
+        "Please drop CSV files only. \nYou can download the appropriate member data off of the Gym Sales Website."
+      );
     }
   };
 

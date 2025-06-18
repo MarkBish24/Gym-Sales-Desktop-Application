@@ -126,7 +126,21 @@ export default function AddListPage({ setShowAddListPage }) {
         </div>
       ) : null}
       {message && title && (!sendMode || (sendMode && time && date)) && (
-        <button className="ui-btn">Create New List</button>
+        <button
+          className="ui-btn"
+          onClick={() =>
+            window.electronAPI.createQueueItem(
+              file,
+              title,
+              message,
+              time,
+              date,
+              sendMode
+            )
+          }
+        >
+          Create New List
+        </button>
       )}
     </motion.div>
   );

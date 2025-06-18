@@ -1,6 +1,7 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
+
+const fs = require("fs");
 const path = require("path");
-const { ipcMain } = require("electron");
 
 function createWindow() {
   const window = new BrowserWindow({
@@ -35,4 +36,6 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
 
-ipcMain.on("create-queue-item", (data) => {});
+ipcMain.on("create-queue-item", (event, queueData) => {
+  console.log(queueData);
+});
