@@ -3,11 +3,30 @@ import { useState } from "react";
 
 import "./AddListPage.css";
 import DropBox from "./DropBox.jsx";
+import { option } from "framer-motion/client";
+import Calendar from "react-calendar";
 
 export default function AddListPage({ setShowAddListPage }) {
   const [message, setMessage] = useState(null);
   const [sendMode, setSendMode] = useState(false);
+  const [sendTime, setSendTime] = useState(null);
+  const [date, setDate] = useState(null);
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const generateTimes = () => {
+    const times = [];
+    for (let hour = 4; hour <= 12; hour++) {
+      times.push(`${hour}:00 AM`);
+      times.push(`${hour}:30 AM`);
+    }
+    for (let hour = 1; hour <= 10; hour++) {
+      times.push(`${hour}:00 PM`);
+      times.push(`${hour}:30 PM`);
+    }
+    return times;
+  };
   return (
     <motion.div
       initial={{ x: "-100%" }}
@@ -68,8 +87,26 @@ export default function AddListPage({ setShowAddListPage }) {
               Set Time for Text-Message!
             </label>
             <div className="set-time-btns">
-              <button className="ui-btn">Set Day</button>
-              <button className="ui-btn">Set Time</button>
+              <label>Select a Time</label>
+              <select>
+                {generateTimes().map((time) => (
+                  <option key={time} value={time}>
+                    {time}
+                  </option>
+                ))}
+              </select>
+              <label>Select a Date</label>
+              <Calendar
+                onChange={setDate}
+                value={date}
+                tileDisabled={({ date }) => {
+                  return date <= today;
+                }}
+                formatShortWeekday={(locale, date) => {
+                  const weekdays = ["S", "M", "T", "W", "T", "F", "S"];
+                  return weekdays[date.getDay()];
+                }}
+              />
             </div>
           </div>
         ) : null}
