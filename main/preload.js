@@ -1,8 +1,9 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electronAPI", {
-  createQueueItem: (file, title, message, time, date, sendMode) => {
-    const queueData = { file, title, message, time, date, sendMode };
+  createQueueItem: (fileString, title, message, time, date, sendMode) => {
+    const queueData = { fileString, title, message, time, date, sendMode };
     ipcRenderer.send("create-queue-item", queueData);
   },
+  getAllQueueItems: () => ipcRenderer.invoke("get-all-queue-items"),
 });

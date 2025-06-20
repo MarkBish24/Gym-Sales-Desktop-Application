@@ -128,16 +128,22 @@ export default function AddListPage({ setShowAddListPage }) {
       {message && title && (!sendMode || (sendMode && time && date)) && (
         <button
           className="ui-btn"
-          onClick={() =>
-            window.electronAPI.createQueueItem(
-              file,
-              title,
-              message,
-              time,
-              date,
-              sendMode
-            )
-          }
+          onClick={() => {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+              const fileString = reader.result; // this is the CSV content as a string
+              window.electronAPI.createQueueItem(
+                fileString, // sending CSV as plain text
+                title,
+                message,
+                time,
+                date,
+                sendMode
+              );
+            };
+            reader.readAsText(file);
+          }}
         >
           Create New List
         </button>
