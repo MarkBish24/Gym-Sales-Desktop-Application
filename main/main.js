@@ -88,13 +88,34 @@ ipcMain.on("create-queue-item", (event, queueData) => {
   event.reply("create-queue-item-result", { success: true, targetFolder });
 });
 
-ipcMain.on("get-all-queue-items", async (event) => {
+ipcMain.handle("get-all-queue-items", async (event) => {
   try {
     if (!fs.existsSync(baseFolderPath)) {
-      return [];
+      return []; // No base folder → empty array
     }
+
+    const entries = fs.readdirSync(baseFolderPath, { withFileTypes: true });
+
+    const results = [];
+
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        const folderName = entry.name;
+        const infoPath = path.join(baseFolderPath, folderName, "info.csv");
+
+        if (fs.existsSync(infoPath)) {
+          const content = fs.readFileSync(infoPath, "utf-8");
+
+          results.push({
+            folder: folderName,
+            infoPath: infoPath,
+            content: content,
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Error reading info.csv files:", error);
+    return [];
   }
-
-
-
 });

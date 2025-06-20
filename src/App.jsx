@@ -11,6 +11,18 @@ export default function App() {
   const [showLoginPage, setShowLoginPage] = useState(false);
 
   const [loginData, setLoginData] = useState({ username: "", password: "" });
+
+  const [queueInfo, setQueueInfo] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await window.electronAPI.getAllQueueItems();
+      setQueueInfo(result);
+      console.log(queueInfo);
+    }
+
+    fetchData();
+  }, []);
   return (
     <>
       <div className="header-container">
@@ -35,9 +47,14 @@ export default function App() {
         </div>
       </div>
       <div className="queue-container">
-        {tempArray.map((element, index) => {
-          return <QueueItem key={index} title={element} />;
-        })}
+        {
+          // queueInfo.map((element, index) => {
+          //   return <QueueItem key={index} title={element.content.title} />;
+          // })
+          tempArray.map((element, index) => {
+            return <QueueItem key={index} title={element} />;
+          })
+        }
       </div>
       {showAddListPage ? (
         <AddListPage setShowAddListPage={setShowAddListPage} />
