@@ -4,7 +4,7 @@ import { IoIosPlay, IoIosPause } from "react-icons/io";
 import { AiFillDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
 
-export default function QueueItem({ title }) {
+export default function QueueItem({ info }) {
   const [isPaused, setIsPaused] = useState(true);
 
   function ActivateBot() {
@@ -14,7 +14,23 @@ export default function QueueItem({ title }) {
   return (
     <>
       <div className="queue-item">
-        <span>Queue Item {title}</span>
+        <div className="queue-item-title-cntr">
+          <span className="queue-item-title"> {info.title}</span>
+          <div className="download-bar">
+            <div
+              className="download-bar-fill active"
+              style={{
+                width:
+                  info.members > 0
+                    ? `${Math.min((info.sent / info.members) * 100, 100)}%`
+                    : "0%",
+              }}
+            ></div>
+            <span className="download-bar-label">
+              {info.sent} / {info.members}
+            </span>
+          </div>
+        </div>
         <div className="queue-btn-container">
           <button className="queue-btn pause-btn" onClick={ActivateBot}>
             {isPaused ? <IoIosPlay /> : <IoIosPause />}

@@ -11,7 +11,60 @@
   justify-content: space-between;
   align-items: center;
 }
+.queue-item-title-cntr {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-right: 30px;
+}
 
+.queue-item-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.download-bar {
+  height: 14px;
+  width: 100%;
+  background-color: rgb(146, 159, 159);
+  margin-top: 12px;
+  border-radius: 20px;
+}
+
+.download-bar-fill {
+  height: 100%;
+  background-color: rgb(47, 61, 47);
+  border-radius: 20px 0 0 20px;
+  transition: width 0.3s ease-in-out;
+  border-radius: 20px;
+}
+
+.download-bar-fill.active {
+  /* Use a diagonal stripes pattern */
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgb(45, 241, 87) 0,
+    rgb(45, 241, 87) 13px,
+    rgba(21, 183, 10, 0.8) 20px,
+    rgba(21, 183, 10, 0.8) 20px
+  );
+
+  animation: movePattern 5s linear infinite;
+}
+
+/* Keyframes to slide the background horizontally */
+@keyframes movePattern {
+  from {
+    background-position: 0px 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+.download-bar-label {
+  font-size: 12px;
+}
 .queue-btn-container {
   display: flex;
   flex-direction: row;

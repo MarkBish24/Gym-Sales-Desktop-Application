@@ -18,7 +18,7 @@ export default function App() {
     async function fetchData() {
       const result = await window.electronAPI.getAllQueueItems();
       setQueueInfo(result);
-      console.log(queueInfo);
+      console.log(result);
     }
 
     fetchData();
@@ -51,8 +51,8 @@ export default function App() {
           // queueInfo.map((element, index) => {
           //   return <QueueItem key={index} title={element.content.title} />;
           // })
-          tempArray.map((element, index) => {
-            return <QueueItem key={index} title={element} />;
+          queueInfo.map((element, index) => {
+            return <QueueItem key={index} info={element.info} />;
           })
         }
       </div>

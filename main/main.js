@@ -64,7 +64,7 @@ ipcMain.on("create-queue-item", (event, queueData) => {
     console.log("Created folder:", targetFolder);
   }
 
-  //create both the members.csv and the info.csv
+  //create both the members.csv and the info.json
 
   const membersPath = path.join(targetFolder, "members.csv");
   fs.writeFileSync(membersPath, fileString, "utf-8");
@@ -77,13 +77,21 @@ ipcMain.on("create-queue-item", (event, queueData) => {
   const sentCount = 0;
   const errorCount = 0;
 
-  const infoPath = path.join(targetFolder, "info.csv");
-  const infoContent =
-    "title,message,date,time,sendMode,members,sent,error\n" + // header row
-    `${title},${message},${date},${time},${sendMode},${membersCount},${sentCount},${errorCount}\n`;
+  // create info.json instead of info.csv
+  const infoPath = path.join(targetFolder, "info.json");
+  const infoContent = {
+    title,
+    message,
+    date,
+    time,
+    sendMode,
+    members: membersCount,
+    sent: sentCount,
+    error: errorCount,
+  };
 
-  fs.writeFileSync(infoPath, infoContent, "utf8");
-  console.log("Saved info.csv");
+  fs.writeFileSync(infoPath, JSON.stringify(infoContent, null, 2), "utf8");
+  console.log("Saved info.json");
 
   event.reply("create-queue-item-result", { success: true, targetFolder });
 });
@@ -101,21 +109,24 @@ ipcMain.handle("get-all-queue-items", async (event) => {
     for (const entry of entries) {
       if (entry.isDirectory()) {
         const folderName = entry.name;
-        const infoPath = path.join(baseFolderPath, folderName, "info.csv");
+        const infoPath = path.join(baseFolderPath, folderName, "info.json");
 
         if (fs.existsSync(infoPath)) {
           const content = fs.readFileSync(infoPath, "utf-8");
+          const jsonData = JSON.parse(content);
 
           results.push({
             folder: folderName,
             infoPath: infoPath,
-            content: content,
+            info: jsonData,
           });
         }
       }
     }
+
+    return results;
   } catch (error) {
-    console.error("Error reading info.csv files:", error);
+    console.error("Error reading info.json files:", error);
     return [];
   }
 });
