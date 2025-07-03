@@ -130,3 +130,19 @@ ipcMain.handle("get-all-queue-items", async (event) => {
     return [];
   }
 });
+
+ipcMain.handle("delete-queue-item", async (event, folderName) => {
+  try {
+    const folderPath = path.join(baseFolderPath, folderName);
+
+    if (fs.existsSync(folderPath)) {
+      fs.rmSync(folderPath, { recursive: true, force: true }); // deletes folder and contents
+      return { success: true };
+    } else {
+      return { success: false, error: "Folder does not exist" };
+    }
+  } catch (error) {
+    console.error("Failed to delete folder:", error);
+    return { success: false, error: error.message };
+  }
+});

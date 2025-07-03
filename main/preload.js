@@ -6,4 +6,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
     ipcRenderer.send("create-queue-item", queueData);
   },
   getAllQueueItems: () => ipcRenderer.invoke("get-all-queue-items"),
+  deleteQueueItem: (folderName) =>
+    ipcRenderer.invoke("delete-queue-item", folderName),
 });
