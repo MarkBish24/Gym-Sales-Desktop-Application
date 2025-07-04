@@ -1,10 +1,10 @@
 {
-  "title": "Birthday-Members",
-  "message": "Happy Birthday",
+  "title": "test-texts",
+  "message": "Hi Mark",
   "date": null,
   "time": null,
   "sendMode": false,
-  "members": 1615,
+  "members": 15,
   "sent": 0,
   "error": 0
 }

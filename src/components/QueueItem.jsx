@@ -4,12 +4,25 @@ import { IoIosPlay, IoIosPause } from "react-icons/io";
 import { AiFillDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
 
-export default function QueueItem({ element }) {
+export default function QueueItem({ element, loginData }) {
   const info = element.info;
   const [isPaused, setIsPaused] = useState(true);
 
   function ActivateBot() {
+    if (!loginData.username || !loginData.password) {
+      alert(
+        "Login information is missing.\nPlease provide both username and password."
+      );
+      return;
+    }
     setIsPaused((prev) => !prev);
+    window.electronAPI.startSalesBot(element.folder, loginData).then((res) => {
+      if (res.success) {
+        console.log("Bot finished");
+      } else {
+        console.error("Bot failed:", res.error);
+      }
+    });
   }
 
   function handleDelete() {

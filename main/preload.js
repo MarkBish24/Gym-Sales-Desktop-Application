@@ -8,4 +8,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
   getAllQueueItems: () => ipcRenderer.invoke("get-all-queue-items"),
   deleteQueueItem: (folderName) =>
     ipcRenderer.invoke("delete-queue-item", folderName),
+  startSalesBot: (folder, loginData) =>
+    ipcRenderer.invoke("start-sales-bot", folder, loginData),
 });

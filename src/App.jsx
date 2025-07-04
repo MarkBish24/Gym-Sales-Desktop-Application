@@ -52,7 +52,9 @@ export default function App() {
           //   return <QueueItem key={index} title={element.content.title} />;
           // })
           queueInfo.map((element, index) => {
-            return <QueueItem key={index} element={element} />;
+            return (
+              <QueueItem key={index} element={element} loginData={loginData} />
+            );
           })
         }
       </div>

@@ -1,5 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 
+const { startSalesBot } = require("./bot.js");
+
 const fs = require("fs");
 const path = require("path");
 
@@ -67,10 +69,21 @@ ipcMain.on("create-queue-item", (event, queueData) => {
   //create both the members.csv and the info.json
 
   const membersPath = path.join(targetFolder, "members.csv");
-  fs.writeFileSync(membersPath, fileString, "utf-8");
-  console.log("Saved members.csv");
 
   const lines = fileString.split(/\r?\n/).filter((line) => line.trim() !== "");
+
+  const header = lines[0].trim() + ",message_sent";
+  const updatedLines = [header];
+
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (line) {
+      updatedLines.push(`${line}, false`);
+    }
+  }
+
+  fs.writeFileSync(membersPath, updatedLines.join("\n"), "utf-8");
+  console.log("Saved members.csv");
 
   const membersCount = Math.max(lines.length - 1, 0);
 
@@ -144,5 +157,15 @@ ipcMain.handle("delete-queue-item", async (event, folderName) => {
   } catch (error) {
     console.error("Failed to delete folder:", error);
     return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle("start-sales-bot", async (event, folderName, loginData) => {
+  try {
+    await startSalesBot(folderName, loginData);
+    return { success: true };
+  } catch (err) {
+    console.error("Bot error:", err);
+    return { success: false, error: err.message };
   }
 });

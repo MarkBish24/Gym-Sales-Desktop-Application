@@ -143,6 +143,8 @@ export default function AddListPage({ setShowAddListPage }) {
               );
             };
             reader.readAsText(file);
+
+            window.location.reload();
           }}
         >
           Create New List
