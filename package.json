@@ -23,6 +23,7 @@
   "homepage": "https://github.com/MarkBish24/Gym-Sales-Desktop-Application#readme",
   "dependencies": {
     "csv-parse": "^5.6.0",
+    "csv-stringify": "^6.5.2",
     "framer-motion": "^12.18.1",
     "puppeteer": "^24.11.2",
     "react": "^19.1.0",

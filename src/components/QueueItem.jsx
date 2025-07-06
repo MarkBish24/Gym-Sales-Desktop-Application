@@ -8,6 +8,22 @@ export default function QueueItem({ element, loginData }) {
   const info = element.info;
   const [isPaused, setIsPaused] = useState(true);
 
+  const [sent, setSent] = useState(info.sent);
+
+  useEffect(() => {
+    // Poll every 3 seconds to get updated info.sent
+    const intervalId = setInterval(() => {
+      window.electronAPI.getInfo(element.folder).then((updatedInfo) => {
+        if (updatedInfo && typeof updatedInfo.sent === "number") {
+          setSent(updatedInfo.sent);
+        }
+      });
+    }, 3000);
+
+    // Cleanup on unmount
+    return () => clearInterval(intervalId);
+  }, [element.folder]);
+
   function ActivateBot() {
     if (!loginData.username || !loginData.password) {
       alert(
@@ -46,7 +62,7 @@ export default function QueueItem({ element, loginData }) {
               style={{
                 width:
                   info.members > 0
-                    ? `${Math.min((info.sent / info.members) * 100, 100)}%`
+                    ? `${Math.min((sent / info.members) * 100, 100)}%`
                     : "0%",
               }}
             ></div>

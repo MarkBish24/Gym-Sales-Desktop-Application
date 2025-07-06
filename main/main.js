@@ -5,6 +5,9 @@ const { startSalesBot } = require("./bot.js");
 const fs = require("fs");
 const path = require("path");
 
+const parse = require("csv-parse/sync");
+const stringify = require("csv-stringify/sync");
+
 //Base Folder used to store data
 const baseFolderPath = path.join(__dirname, "../python/csv-data");
 
@@ -168,4 +171,11 @@ ipcMain.handle("start-sales-bot", async (event, folderName, loginData) => {
     console.error("Bot error:", err);
     return { success: false, error: err.message };
   }
+});
+
+ipcMain.handle("get-info", async (event, folderName) => {
+  const infoPath = path.join(baseFolderPath, folderName, "info.json");
+  if (!fs.existsSync(infoPath)) return null;
+  const content = fs.readFileSync(infoPath, "utf-8");
+  return JSON.parse(content);
 });

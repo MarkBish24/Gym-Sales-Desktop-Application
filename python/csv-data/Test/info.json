@@ -1,10 +1,10 @@
 {
-  "title": "test-texts",
-  "message": "Hi Mark",
+  "title": "Test",
+  "message": "Hello There",
   "date": null,
   "time": null,
   "sendMode": false,
   "members": 15,
-  "sent": 0,
+  "sent": 7,
   "error": 0
 }
