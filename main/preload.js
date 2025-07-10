@@ -10,5 +10,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
     ipcRenderer.invoke("delete-queue-item", folderName),
   startSalesBot: (folder, loginData) =>
     ipcRenderer.invoke("start-sales-bot", folder, loginData),
-  getInfo: () => ipcRenderer.invoke("get-info", folderName),
+  killBot: (folderName) => ipcRenderer.invoke("kill-bot", folderName),
+  getInfo: (folderName) => ipcRenderer.invoke("get-info", folderName),
 });

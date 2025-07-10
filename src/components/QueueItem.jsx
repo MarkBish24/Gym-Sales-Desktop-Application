@@ -8,14 +8,20 @@ export default function QueueItem({ element, loginData }) {
   const info = element.info;
   const [isPaused, setIsPaused] = useState(true);
 
-  const [sent, setSent] = useState(info.sent);
+  const [messagesCompleted, setMessagesCompleted] = useState(
+    (info.sent ?? 0) + (info.error ?? 0)
+  );
 
   useEffect(() => {
-    // Poll every 3 seconds to get updated info.sent
+    // Poll every 3 seconds to get updated info.sent and info.error
     const intervalId = setInterval(() => {
       window.electronAPI.getInfo(element.folder).then((updatedInfo) => {
-        if (updatedInfo && typeof updatedInfo.sent === "number") {
-          setSent(updatedInfo.sent);
+        if (
+          updatedInfo &&
+          typeof updatedInfo.sent === "number" &&
+          typeof updatedInfo.error === "number"
+        ) {
+          setMessagesCompleted(updatedInfo.sent + updatedInfo.error);
         }
       });
     }, 3000);
@@ -31,14 +37,32 @@ export default function QueueItem({ element, loginData }) {
       );
       return;
     }
-    setIsPaused((prev) => !prev);
-    window.electronAPI.startSalesBot(element.folder, loginData).then((res) => {
-      if (res.success) {
-        console.log("Bot finished");
-      } else {
-        console.error("Bot failed:", res.error);
-      }
-    });
+
+    if (isPaused) {
+      // Bot is paused → Start it
+      setIsPaused(false);
+      window.electronAPI
+        .startSalesBot(element.folder, loginData)
+        .then((res) => {
+          if (res.success) {
+            console.log("Bot finished");
+            setIsPaused(true); // Reset to paused when it finishes naturally
+          } else {
+            console.error("Bot failed:", res.error);
+            setIsPaused(true);
+          }
+        });
+    } else {
+      // Bot is running → Kill it
+      window.electronAPI.killBot(element.folder).then((res) => {
+        if (res.success) {
+          console.log("Bot stopped");
+          setIsPaused(true);
+        } else {
+          console.error("Failed to stop bot:", res.error);
+        }
+      });
+    }
   }
 
   function handleDelete() {
@@ -62,12 +86,15 @@ export default function QueueItem({ element, loginData }) {
               style={{
                 width:
                   info.members > 0
-                    ? `${Math.min((sent / info.members) * 100, 100)}%`
+                    ? `${Math.min(
+                        (messagesCompleted / info.members) * 100,
+                        100
+                      )}%`
                     : "0%",
               }}
             ></div>
             <span className="download-bar-label">
-              {info.sent} / {info.members}
+              {messagesCompleted} / {info.members}
             </span>
           </div>
         </div>

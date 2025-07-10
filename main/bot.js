@@ -4,9 +4,14 @@ const path = require("path");
 const parse = require("csv-parse/sync");
 const stringify = require("csv-stringify/sync");
 
-const { markMessageSent, incrementMessagesSent } = require("./fileUpdater");
+const {
+  markMessageSent,
+  markMessageError,
+  incrementMessagesSent,
+  incrementErrorCount,
+} = require("./fileUpdater");
 
-async function startSalesBot(folderName, loginData) {
+async function startSalesBot(folderName, loginData, isAborted) {
   console.log(`🚀 Running bot for folder: ${folderName}`);
 
   // Load member data
@@ -47,6 +52,12 @@ async function startSalesBot(folderName, loginData) {
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   for (let i = 0; i < data.length; i++) {
+    if (isAborted && isAborted()) {
+      console.log("🚨 Bot aborted.");
+      await browser.close();
+      break;
+    }
+
     const person = data[i];
     const id = person.id;
     const url = `https://login.gymsales.net/people/${id}`;
@@ -80,7 +91,8 @@ async function startSalesBot(folderName, loginData) {
       );
     } catch (err) {
       console.error(`❌ Error on ID ${id}:`, err.message);
-      continue;
+      markMessageError(folderName, id);
+      incrementErrorCount(folderName);
     }
   }
 
@@ -108,7 +120,8 @@ function getMembersData(folderName) {
   });
 
   const filtered = records.filter((row) => {
-    return String(row.message_sent).toLowerCase() !== "true";
+    const val = String(row.message_sent).toLowerCase();
+    return val !== "true" && val !== "false";
   });
 
   // Optionally overwrite the file to clean out sent ones

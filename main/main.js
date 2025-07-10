@@ -11,6 +11,8 @@ const stringify = require("csv-stringify/sync");
 //Base Folder used to store data
 const baseFolderPath = path.join(__dirname, "../python/csv-data");
 
+const runningBots = new Map();
+
 // Create a window for the user
 function createWindow() {
   const window = new BrowserWindow({
@@ -81,7 +83,7 @@ ipcMain.on("create-queue-item", (event, queueData) => {
   for (let i = 1; i < lines.length; i++) {
     const line = lines[i].trim();
     if (line) {
-      updatedLines.push(`${line}, false`);
+      updatedLines.push(`${line}, null`);
     }
   }
 
@@ -164,13 +166,31 @@ ipcMain.handle("delete-queue-item", async (event, folderName) => {
 });
 
 ipcMain.handle("start-sales-bot", async (event, folderName, loginData) => {
+  if (runningBots.has(folderName)) {
+    return { success: false, error: "Bot already running for this folder." };
+  }
+
+  const abortController = { aborted: false };
+  runningBots.set(folderName, abortController);
+
   try {
-    await startSalesBot(folderName, loginData);
+    await startSalesBot(folderName, loginData, () => abortController.aborted);
+    runningBots.delete(folderName);
     return { success: true };
   } catch (err) {
+    runningBots.delete(folderName);
     console.error("Bot error:", err);
     return { success: false, error: err.message };
   }
+});
+
+ipcMain.handle("kill-bot", (event, folderName) => {
+  const bot = runningBots.get(folderName);
+  if (bot) {
+    bot.aborted = true;
+    return { success: true };
+  }
+  return { success: false, error: "No running bot for this folder." };
 });
 
 ipcMain.handle("get-info", async (event, folderName) => {
